@@ -14,6 +14,7 @@ app.get('/api/test', (req, res) => {
     mongoClient.connect('mongodb://localhost:27017', (err, client) => {
         if (err) {
             console.log(err);
+            res.sendStatus(500);
             return;
         }
         console.log('Connected to MongoDB');
@@ -25,6 +26,7 @@ app.get('/api/test', (req, res) => {
         collection.find().toArray((err, docs) => {
             if (err) {
                 console.log(err);
+                res.sendStatus(500);
                 return;
             }
             console.log(docs);
