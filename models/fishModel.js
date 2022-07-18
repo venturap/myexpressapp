@@ -3,18 +3,18 @@ const log = require('../local_modules/Log');
 
 mongoose.connect('mongodb://localhost:27017/animals')
 .then(() => {
-    log.info('Connected to MongoDB from InsectModel');
+    log.info('Connected to MongoDB from FishModel');
 })
 .catch(err => {
     log.error(err.message);
 });
 
-const insectSchema = mongoose.Schema({
-    _id: Number,
+const fishSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     species: String,
-    legs: Number
+    fins: Number
 });
 
-const Insect = mongoose.model('Insect', insectSchema);
+const Fish = mongoose.model('Fish', fishSchema);
 
-module.exports = Insect;
+module.exports = Fish;
