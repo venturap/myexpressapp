@@ -10,10 +10,9 @@ mongoose.connect('mongodb://localhost:27017/animals')
 });
 
 const fishSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     species: String,
     fins: Number
-});
+}, {collection: 'fishes'});
 
 const Fish = mongoose.model('Fish', fishSchema);
 

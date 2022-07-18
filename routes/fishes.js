@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {index, create, read, update, remove} = require('../controllers/fishController');
+const {index, create, read, update, remove} = require('../controllers/fishesController');
 
 
 // List all
