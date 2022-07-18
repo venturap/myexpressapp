@@ -1,0 +1,13 @@
+[{
+  "_id": 1,
+  "species": "spider",
+  "legs": "8"
+},{
+  "_id": 2,
+  "species": "millipede",
+  "legs": "24-750"
+},{
+  "_id": 3,
+  "species": "centipede",
+  "legs": "30-354"
+}]
