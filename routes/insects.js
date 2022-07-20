@@ -6,6 +6,7 @@ const {index, create, read, update, remove} = require('../controllers/insectsCon
 
 // List all
 router.get('/', index);
+
 // Create new
 router.post('/', create);
 
