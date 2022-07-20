@@ -8,6 +8,8 @@ router.route('/')
 
 router
     .route('/:id')
-    .get(read);
+    .get(read)
+    .patch(update)
+    .delete(remove);
 
 module.exports = router;
