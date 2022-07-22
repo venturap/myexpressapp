@@ -1,6 +1,9 @@
 const log = require('../local_modules/Log');
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+
 exports.index = async (req, res) => {
     const users = await User.find();
     log.info(users);
@@ -54,7 +57,8 @@ exports.userLogin = async (req, res) => {
     if (user) {
         bcrypt.compare(req.body.password, user.password, async (err, result) => {
             if (result) {
-                res.json({status: 'success', data: user});
+                const token = jwt.sign({id: user.username}, process.env.JWT_SECRET, {expiresIn: '1h'});
+                res.json({status: 'success', data: token});
             } else {
                 res.status(400).json({status: 'error', message: 'Invalid password'});
             }
