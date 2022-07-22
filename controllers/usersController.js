@@ -1,6 +1,6 @@
 const log = require('../local_modules/Log');
 const User = require('../models/userModel');
-
+const bcrypt = require('bcrypt');
 exports.index = async (req, res) => {
     const users = await User.find();
     log.info(users);
@@ -34,9 +34,15 @@ exports.remove = async (req, res) => {
 
 exports.create = async (req, res) => {
     try{
-        const user = await User.create(req.body);
-        user.save()
-        res.json({status: 'success', data: user});
+        
+        const password = req.body.password + '';
+        
+        bcrypt.hash(password, 10, async (err, hash) => {
+            const user = await User.create({username:req.body.username, password:hash});
+            user.save()
+            res.json({status: 'success', data: user});
+        });
+        
     }catch (err) {
         res.status(400).json({status: 'error', message: err.message});
     }
@@ -46,11 +52,13 @@ exports.create = async (req, res) => {
 exports.userLogin = async (req, res) => {
     const user = await User.findOne({username: req.body.username});
     if (user) {
-        if (user.password === req.body.password) {
-            res.json({status: 'success', data: user});
-        } else {
-            res.json({status: 'error', message: 'Incorrect password'});
-        }
+        bcrypt.compare(req.body.password, user.password, async (err, result) => {
+            if (result) {
+                res.json({status: 'success', data: user});
+            } else {
+                res.status(400).json({status: 'error', message: 'Invalid password'});
+            }
+        });
     } else {
         res.json({status: 'error', message: 'User not found'});
     }

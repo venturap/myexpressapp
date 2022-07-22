@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const log = require('../local_modules/Log');
 
-mongoose.connect('mongodb://localhost:27017/animals')
+mongoose.connect(`mongodb://${process.env.DATABASE_HOST}:${process.env.DATABASE_PORT}/animals`)
 .then(() => {
     log.info('Connected to MongoDB from UserModel');
 })

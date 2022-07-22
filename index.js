@@ -1,11 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
 const log = require('./local_modules/Log');
 const apiRouter = require('./routes/api');
 const insectsRouter = require('./routes/insects');
 const fishesRouter = require('./routes/fishes');
 const usersRouter = require('./routes/users');
+const port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
         log.info('request received path: ' + req.path);
